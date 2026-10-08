@@ -140,4 +140,86 @@ namespace Parser
             ev.parametros = campos[6];
             saida.eventos.push_back(ev);
         }
+
+        // Aplica padrões a campos opcionais vazios
+        Defaults::aplicarPadroesTarefa(saida);
+
+        // Validação semântica
+        if (!Validacao::validarTarefa(saida, erro, aviso)) {
+            erro = "linha " + std::to_string(numeroLinha) + ": " + erro;
+            return false;
+        }
+
+        // Se a tarefa é aperiódica, marca como IGNORADA
+        // Requisito 4.4
+        if (saida.periodo == 0) {
+            saida.estado = EstadoTarefa::IGNORADA;
+            if (!aviso.empty())
+                aviso = "linha " + std::to_string(numeroLinha) + ": " + aviso;
+        }
+
+        return true;
     }
+
+    // Leitura completa do arquivo
+    ResultadoConfig lerArquivo(const std::string& caminho) {
+        ResultadoConfig resultado;
+
+        std::ifstream arquivo(caminho);
+        if (!arquivo.is_open()) {
+            resultado.erros.push_back("não foi possível abrir o arquivo '" + caminho + "' verifique o caminho e permissões");
+            return resultado;
+        }
+
+        std::string linha:
+        int numeroLinha = 0;
+        bool sistemaLido = false;
+
+        while (std::getline(arquivo, linha)) {
+            numeroLinha++;
+
+            // Ignora linhas em branco
+            // Requisito 3.3.6
+            if (isBlank(linha)) continue;
+
+            if (!sistemaLido) {
+                // Primeira linha  não vazia = sistema
+                std::string erro;
+                if (!parseLinhaSistema(linha, resultado.sistema, erro)) {
+                    resultado.erros.push_back("linha " + std::to_string(numeroLinha) + ": " + erro);
+                    return resultado;
+                }
+                sistemaLido = true;
+            } else {
+                // Linhas seguintes = tarefas
+                TCB t;
+                std::string erro, aviso;
+                if(!parseLinhaTarefa(linha, numeroLinha, t, erro, aviso)) {
+                    resultado.erro.push_back(erro);
+                    continue;
+                }
+                if (!aviso.empty())
+                    resultado.avisos.push_back(t);
+            }
+        }
+
+        if (!sistemaLido) {
+            resultado.erros.push_back("arquivo vazio ou sem linha de parâmetros de sistema");
+            return resultado;
+        }
+
+        // Verifica se há ao menos uma tarefa válida (não IGNORADA)
+        bool temTarefaValida = false;
+        for (const auto& t : resultado.tarefas) {
+            if(t.estado != EstadoTarefa:: IGNORADA) {
+                temTarefaValida = true;
+                break;
+            }
+        }
+        if (!temTarefaValida) 
+            resultado.avisos.push_back("nenhuma tarefa periódica encontrada. " "A simulação não terá o q1ue executar");
+
+        resultado.sucesso = resultado.erros.empty();
+        retun resultado;
+    }
+}
