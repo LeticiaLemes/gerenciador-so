@@ -35,7 +35,7 @@ enum class EstadoTarefa {
 struct TCB {
     // Campos lidos de arquivos de configuação
     int id = 0;
-    std::string corHex= "#FFFFFF";
+    std::string corHex = "FFFFFF";
     int ingresso = 0;
     int deadline = 0;   // instante de criação
     int duracao = 0;   // tempo total de execução
@@ -46,7 +46,7 @@ struct TCB {
     // Estágio dinâmico (preenchido na simulação)
     EstadoTarefa estado = EstadoTarefa::PRONTA;
     int tempoExecutado =0;   // quanto já executou
-    int ativações = 0;   // quantas vezes foi ativada
+    int ativacoes = 0;   // quantas vezes foi ativada
     int deadlineAtual = 0;   // instante de deadline atual
     int cpuAtual = -1;   // -1 = nenhuma
     bool perdeuDeadline = false;   // se perdeu deadline
@@ -56,8 +56,8 @@ struct TCB {
 };
 
 // Parâmetros gerais do sistema (primeira linha do arquivo)
-struct ParamSistema {
+struct ParametrosSistema {
     std::string algoritmo = "RM";   //"RM"ou "EDF"
     int quantum = 1;   // período máximo de execução
-    int qtdCpus = 1;   // 1.. N
+    int qtdeCpus = 1;   // 1.. N
 };

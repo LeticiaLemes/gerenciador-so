@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-namespace Stringutils {
+namespace StringUtils {
     // Remove espaços/tabs do início e fim
     std::string trim(const std::string& str);
 

@@ -20,7 +20,7 @@ namespace Validacao {
         }
 
         if (!Cores::hexValido(t.corHex)) {
-            erro = "cor inválida (" + t.corHex + "). Deve ser no formato #RRGGBB.";
+            erro = "cor inválida (" + t.corHex + "). Deve ser no formato RRGGBB.";
             return false;
         }
 
@@ -41,7 +41,7 @@ namespace Validacao {
 
         if (t.periodo < 0) {
             // requisito 3.3
-            erro = "período deve ser >= 0.";
+            erro = "período negativo não é permitido (deve ser >= 0).";
             return false;
         }
 

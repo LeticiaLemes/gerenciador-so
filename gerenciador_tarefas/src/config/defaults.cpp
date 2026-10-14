@@ -11,14 +11,6 @@ bool aplicarPadroesTarefa(TCB& t) {
         t.corHex = COR;
         aplicou = true;
     }
-    if (t.duracao <= 0) {
-        t.duracao = DURACAO;
-        aplicou = true;
-    }
-    if (t.prazo < 0) {
-        t.prazo = PRAZO;
-        aplicou = true;
-    }
     // ingresso e periodo já são validados no parser; não sobrescrevemos.
 
     return aplicou;

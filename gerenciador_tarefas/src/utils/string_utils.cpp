@@ -41,7 +41,7 @@ namespace StringUtils {
         if (t.empty()) return false;
         try {
             size_t pos = 0;
-            int valot = std::stol(t, &pos);
+            int valot = std::stoi(t, &pos);
             if (pos != t.size()) return false;   // sobrou lixo após o número
             out = valot;
             return true;

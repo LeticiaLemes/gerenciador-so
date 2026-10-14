@@ -8,7 +8,7 @@
 namespace Parser
 {
 
-    using namespace Stringutils;
+    using namespace StringUtils;
 
     // Remove o ; final, se houver
     // Requisito 3.3.3
@@ -26,15 +26,9 @@ namespace Parser
         std::string limpa = removerPVFinal(linha);
         auto campos = split(limpa, ';');
 
-        if (campos.empty() || campos[0].empty())
-        {
-            erro = "linha do sistema vazia ou sem algoritmo";
-            return false;
-        }
-
         // Campo 0 - algoritmo (case-insensitive)
         // Requisito 3.3.2
-        std::string alg = toUpper(campos[0]);
+        std::string alg = campos.empty() ? "" : toUpper(campos[0]);
         if (alg.empty())
             alg = Defaults::ALGORITMO;
         saida.algoritmo = alg;
@@ -92,7 +86,7 @@ namespace Parser
         }
 
         // - id -
-        if (parseInt(campos[0], saida.id))
+        if (!parseInt(campos[0], saida.id))
         {
             erro = "id inválido ('" + campos[0] + "').";
             return false;
@@ -133,7 +127,7 @@ namespace Parser
         }
 
         // - lista eventos - 
-        if (campos.size() >= 7 && !campos[0].empty()) {
+        if (campos.size() >= 7 && !campos[6].empty()) {
             Evento ev;
             ev.tick = 0;
             ev.tipo = TipoEvento::DESCONHECIDO;
@@ -146,9 +140,10 @@ namespace Parser
 
         // Validação semântica
         if (!Validacao::validarTarefa(saida, erro, aviso)) {
-            erro = "linha " + std::to_string(numeroLinha) + ": " + erro;
             return false;
         }
+
+        Cores::hexParaRgb(saida.corHex, saida.r, saida.g, saida.b);
 
         // Se a tarefa é aperiódica, marca como IGNORADA
         // Requisito 4.4
@@ -171,7 +166,7 @@ namespace Parser
             return resultado;
         }
 
-        std::string linha:
+        std::string linha;
         int numeroLinha = 0;
         bool sistemaLido = false;
 
@@ -195,11 +190,23 @@ namespace Parser
                 TCB t;
                 std::string erro, aviso;
                 if(!parseLinhaTarefa(linha, numeroLinha, t, erro, aviso)) {
-                    resultado.erro.push_back(erro);
+                    resultado.erros.push_back("linha " + std::to_string(numeroLinha) + ": " + erro);
+                    continue;
+                }
+                bool idRepetido = false;
+                for (const auto& existente : resultado.tarefas) {
+                    if (existente.id == t.id) {
+                        idRepetido = true;
+                        break;
+                    }
+                }
+                if (idRepetido) {
+                    resultado.erros.push_back("linha " + std::to_string(numeroLinha) + ": id " + std::to_string(t.id) + " repetido.");
                     continue;
                 }
                 if (!aviso.empty())
-                    resultado.avisos.push_back(t);
+                    resultado.avisos.push_back(aviso);
+                resultado.tarefas.push_back(t);
             }
         }
 
@@ -217,9 +224,9 @@ namespace Parser
             }
         }
         if (!temTarefaValida) 
-            resultado.avisos.push_back("nenhuma tarefa periódica encontrada. " "A simulação não terá o q1ue executar");
+            resultado.avisos.push_back("nenhuma tarefa periódica encontrada. " "A simulação não terá o que executar");
 
         resultado.sucesso = resultado.erros.empty();
-        retun resultado;
+        return resultado;
     }
 }

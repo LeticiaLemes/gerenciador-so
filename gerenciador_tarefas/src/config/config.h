@@ -7,7 +7,7 @@
 // Resultado de leitura de arquivo de configuração
 struct ResultadoConfig {
     bool sucesso = false;
-    ParamSistema sistema;
+    ParametrosSistema sistema;
     std::vector<TCB> tarefas;
     std::vector<std::string> erros;   // mensagens de erro
     std::vector<std::string> avisos;  // mensagens de aviso
@@ -18,7 +18,7 @@ struct ResultadoConfig {
 namespace Defaults {
     constexpr const char* ALGORITMO = "RM";
     constexpr int QUANTUM = 1;
-    constexpr int QTD_CPUS = 1;
+    constexpr int QTDE_CPUS = 1;
     constexpr const char* COR = "FFFFFF";
     constexpr int INGRESSO = 0;
     constexpr int DURACAO = 1;

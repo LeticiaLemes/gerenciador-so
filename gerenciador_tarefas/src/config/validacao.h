@@ -14,5 +14,5 @@ namespace Validacao {
     bool validarTarefa(const TCB& t, std::string&erro, std::string& aviso);
 
     // Valida os parâmetros sistema. False e preenche erro
-    bool validarSistema(const ParametrosSistema& s, std::string& erro, std::string& aviso);
+    bool validarSistema(const ParametrosSistema& s, std::string& erro);
 }
