@@ -3,6 +3,8 @@
 #include "gui/gantt_svg.h"
 #include "gui/legenda_svg.h"
 #include "gui/cpu_status_svg.h"
+#include "gui/controles_html.h"
+#include "gui/inspecao_html.h"
 #include <string>
 
 // -----------------------------------------------------------------------------
@@ -33,6 +35,9 @@ private:
     GanttSVG gantt_;
     LegendaSVG legenda_;
     CpuStatusSVG cpuStatus_;
+    CpuStatusSVG cpuStatus_;
+    ControlesHTML controles_;
+    InspecaoHTML inspecao_;
 
     // Cabeçalho HTML (DOCTYPE, head, CSS).
     std::string >gerarCabecalho(const EstadoSimulacao& estado) const;
