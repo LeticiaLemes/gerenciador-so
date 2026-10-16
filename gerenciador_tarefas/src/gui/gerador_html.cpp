@@ -48,13 +48,18 @@ std::string GeradorHTML::gerar(const EstadoSimulacao& estado) const {
     std::ostringstream s;
     s << gerarCabecalho(estado);
 
+    // Painel de status das CPUs
+    s << "  <div class='cpu-status'>\n";
+    s << cpuStatus_.gerar(estado);
+    s << "  </div>\n";
+
     // Gantt
     s << "  <div class='gantt'>\n";
     s << gantt_.gerar(estado);
     s << "  </div>\n";
 
     // Legenda
-    s << "  <div class='legenda'>\n";
+    s << "  <div class='legenda'CpuStatusSVG cpuStatus_;>\n";
     s << legenda_.gerar();
     s << "  </div>\n";
 
@@ -62,16 +67,14 @@ std::string GeradorHTML::gerar(const EstadoSimulacao& estado) const {
     return s.str();
 }
 
-bool GeradorHTML::salvar(const EstadoSimulacao& estado,
-                         const std::string& caminho) const {
+bool GeradorHTML::salvar(const EstadoSimulacao& estado, const std::string& caminho) const {
     std::ofstream arquivo(caminho);
     if (!arquivo.is_open()) return false;
     arquivo << gerar(estado);
     return arquivo.good();
 }
 
-bool GeradorHTML::gerarEAbrir(const EstadoSimulacao& estado,
-                              const std::string& caminho) const {
+bool GeradorHTML::gerarEAbrir(const EstadoSimulacao& estado, const std::string& caminho) const {
     if (!salvar(estado, caminho)) return false;
     return Navegador::abrirArquivo(caminho);
 }

@@ -2,7 +2,8 @@
 #include <string>
 
 
-// Legenda em SVG (requisito 2: legenda dos elementos gráficos).
+// Legenda em SVG 
+// requisito 2: legenda dos elementos gráficos.
 
 class LegendaSVG {
 public:
@@ -12,6 +13,6 @@ public:
     std::string gerar() const;
 
 private:
-    int largura_ = 1000;
-    int altura_ = 70;
+    int largura_ = 1100;
+    int altura_ = 80;
 };

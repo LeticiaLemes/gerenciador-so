@@ -50,7 +50,7 @@ class GanttSVG {
     // Gera eixo Y (IDs) e as linhas separadoras
     std::string geraY(const EstadoSimulacao& estado, int largura) const;
     
-    // Gera segmentoscada tarefa
+    // Gera segmentos de cada tarefa
     std::string geraSegmentos(const EstadoSimulacao& estado) const;
 
     // Gera os eventos visuais
@@ -70,4 +70,7 @@ class GanttSVG {
 
     // Formata número como string
     static std::string num(int v);
+
+    // Cor
+    static std::string corHexDoTcb(const TCB& t);
 };

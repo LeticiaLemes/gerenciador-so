@@ -2,6 +2,7 @@
 #include "core/estado_simulacao.h"
 #include "gui/gantt_svg.h"
 #include "gui/legenda_svg.h"
+#include "gui/cpu_status_svg.h"
 #include <string>
 
 // -----------------------------------------------------------------------------
@@ -26,15 +27,15 @@ public:
     bool salvar(const EstadoSimulacao& estado, const std::string& caminho) const;
 
     // Gera, salva e abre no navegador padrão.
-    bool gerarEAbrir(const EstadoSimulacao& estado,
-                     const std::string& caminho) const;
+    bool gerarEAbrir(const EstadoSimulacao& estado, const std::string& caminho) const;
 
 private:
     GanttSVG gantt_;
     LegendaSVG legenda_;
+    CpuStatusSVG cpuStatus_;
 
     // Cabeçalho HTML (DOCTYPE, head, CSS).
-    std::string gerarCabecalho(const EstadoSimulacao& estado) const;
+    std::string >gerarCabecalho(const EstadoSimulacao& estado) const;
 
     // Rodapé HTML.
     std::string gerarRodape() const;
