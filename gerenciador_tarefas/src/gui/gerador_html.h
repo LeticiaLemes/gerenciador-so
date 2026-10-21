@@ -35,12 +35,11 @@ private:
     GanttSVG gantt_;
     LegendaSVG legenda_;
     CpuStatusSVG cpuStatus_;
-    CpuStatusSVG cpuStatus_;
     ControlesHTML controles_;
     InspecaoHTML inspecao_;
 
     // Cabeçalho HTML (DOCTYPE, head, CSS).
-    std::string >gerarCabecalho(const EstadoSimulacao& estado) const;
+    std::string gerarCabecalho(const EstadoSimulacao& estado) const;
 
     // Rodapé HTML.
     std::string gerarRodape() const;

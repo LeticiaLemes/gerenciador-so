@@ -4,7 +4,7 @@
 #include <sstream>
 
 std::string GeradorHTML::gerarCabecalho(const EstadoSimulacao& estado) const {
-    td::ostringstream s;
+    std::ostringstream s;
     s << "<!DOCTYPE html>\n"
       << "<html lang='pt-BR'>\n"
       << "<head>\n"
@@ -77,7 +77,7 @@ std::string GeradorHTML::gerar(const EstadoSimulacao& estado) const {
     s << "  </div>\n";
 
     // Legenda
-    s << "  <div class='legenda'CpuStatusSVG cpuStatus_;>\n";
+    s << "  <div class='legenda'>\n";
     s << legenda_.gerar();
     s << "  </div>\n";
 

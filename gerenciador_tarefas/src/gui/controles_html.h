@@ -12,7 +12,7 @@
 // Os controles usam JavaScript para enviar comandos ao servidor HTTP
 // via fetch('/comando', { method: 'POST', body: JSON }).
 
-class ControlesHtml {
+class ControlesHTML {
     public:
         ControlesHTML() = default;
 
@@ -21,14 +21,14 @@ class ControlesHtml {
 
     private:
         // Gera o bloco de botões principais
-        std::string geraBotoes() const;
+        std::string gerarBotoes() const;
 
         // Gera o campo "ir para tick"
         std::string gerarIrTick(const EstadoSimulacao& estado) const;
 
         // Gera formulário de geração de tarefa
-        std::string geraFormMod(const EstadoSimulacao& estado) const;
+        std::string gerarFormMod(const EstadoSimulacao& estado) const;
 
         // Gera o bloco JavaScript que envia comandos
-        std::string geraJava() const;
+        std::string gerarJavaScript() const;
 };

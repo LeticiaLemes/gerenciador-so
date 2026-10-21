@@ -36,6 +36,4 @@ bool aplicarPadroesSistema(ParametrosSistema& s) {
     return aplicou;
 }
 
-// Fim dos valores padrão do sistema.
-
 }

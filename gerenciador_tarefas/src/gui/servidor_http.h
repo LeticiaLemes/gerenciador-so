@@ -28,7 +28,7 @@ class ServidorHTTP {
 
         // Define os callbacks do núcleo
         void setCBComando(CallbackComando cb);
-        void setCBEstadi(CallbackEstado cb);
+        void setCBEstado(CallbackEstado cb);
 
         // Inicia o servidor na porta indicada, e retorna false se falhar
         bool iniciar(int porta);

@@ -34,7 +34,7 @@ class GanttSVG {
     int margemTopo_ = 20;
     int margemDireita_ = 40;
 
-    // Calcula a altura total do SVG (base no maior tick)
+    // Calcula a largura total do SVG (base no maior tick)
     int calculaLargura(const EstadoSimulacao& estado) const;
 
     // Calcula a altura total do SVG (base no número de tarefas)
@@ -55,12 +55,6 @@ class GanttSVG {
 
     // Gera os eventos visuais
     std::string geraEventos(const EstadoSimulacao& estado) const;
-
-    // Gera segmento individual
-    std::string geraSegmento(const SegmentoGantt& seg, const TCB& tarefa, int indice) const;
-
-    // Gera evento individual
-    std::string geraEvInd(const EventoVisual& ev,const TCB& tarefa, int indice) const;
 
     // Converte tick em coordenada X
     int tickParaX(int tick) const;

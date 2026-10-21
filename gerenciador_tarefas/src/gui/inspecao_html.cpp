@@ -13,10 +13,10 @@ std::string InspecaoHTML::estadoParaString(EstadoTarefa e)
         return "Suspensa";
     case EstadoTarefa::TERMINADA:
         return "Terminada";
-    case EstadoTarefa::TERMINADA:
-        return "Terminada";
     case EstadoTarefa::IGNORADA:
         return "Ignorada";
+    case EstadoTarefa::INATIVA:
+        return "Inativa";
     }
     return "?";
 }
@@ -33,7 +33,7 @@ std::string InspecaoHTML::tipoEventoParaString(TipoEvento t)
         return "E/S";
     case TipoEvento::ENVIO_DADOS:
         return "Envio de dados";
-    case TipoEvento::RECEBIMENTO_DADOS:
+    case TipoEvento::RECEBIMENTO_DADO:
         return "Recebimento de dados";
     default:
         return "Desconhecido";

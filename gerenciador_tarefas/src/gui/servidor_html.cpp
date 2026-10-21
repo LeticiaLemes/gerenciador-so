@@ -324,8 +324,8 @@ bool ServidorHTTP::iniciar(int porta) {
                 else if (tipoStr == "AVANCAR_N")         cmd.tipo = TipoComando::AVANCAR_N;
                 else if (tipoStr == "RETROCEDER_N")      cmd.tipo = TipoComando::RETROCEDER_N;
                 else if (tipoStr == "EXECUTAR_COMPLETO") cmd.tipo = TipoComando::EXECUTAR_COMPLETO;
-                else if (tipoStr == "IR_PARA_TICK")      cmd.tipo = TipoComando::IR_PARA_TICK;
-                else if (tipoStr == "MODIFICAR_TAREFA")  cmd.tipo = TipoComando::MODIFICAR_TAREFA;
+                else if (tipoStr == "IR_TICK")      cmd.tipo = TipoComando::IR_TICK;
+                else if (tipoStr == "MOD_TAREFA")  cmd.tipo = TipoComando::MOD_TAREFA;
                 else if (tipoStr == "RESET")             cmd.tipo = TipoComando::RESET;
                 else                                     cmd.tipo = TipoComando::DESCONHECIDO;
 
@@ -338,7 +338,7 @@ bool ServidorHTTP::iniciar(int porta) {
 
                 std::ostringstream json;
                 json << "{\"sucesso\":" << (r.sucesso ? "true" : "false")
-                     << ",\"mensagem\":\"" << escaparJson(r.mensagem) << "\"}";
+                     << ",\"mensagem\":\"" << escaparJson(r.msg) << "\"}";
                 enviarResposta(socketCliente, 200, "application/json", json.str());
                 FECHAR_SOCKET(socketCliente);
                 continue;

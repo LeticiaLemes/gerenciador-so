@@ -22,13 +22,13 @@ enum class TipoComando {
 struct Comando {
     TipoComando tipo = TipoComando::DESCONHECIDO;
     int valor = 0;      // usado por AVANCAR_N, RETROCEDER_N, IR_TICK
-    int idTarefa = -1;      // usado por MODIFICAR_TAREFA
+    int idTarefa = -1;      // usado por MOD_TAREFA
     std::string campo;      // campo a modificar
-    std::string valorCampo      // novo valor
+    std::string valorCampo;      // novo valor
 };
 
 // Resultado aplicação comando
 struct  ResultadoComando {
     bool sucesso = false;
-    std::string msg     // mensagem de erro ou confirmação
+    std::string msg;     // mensagem de erro ou confirmação
 };

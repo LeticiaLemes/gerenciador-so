@@ -10,7 +10,7 @@
 namespace Validacao {
 
     // Valida TCB. False e preenche erro se inválida
-    // Preence=he aviso para casos não fatais
+    // Preenche aviso para casos não fatais
     bool validarTarefa(const TCB& t, std::string&erro, std::string& aviso);
 
     // Valida os parâmetros sistema. False e preenche erro

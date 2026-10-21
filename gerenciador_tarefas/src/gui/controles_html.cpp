@@ -5,8 +5,8 @@ std::string ControlesHTML::gerar(const EstadoSimulacao& estado) const {
     std::ostringstream s;
     s << "<div class='controles'>\n";
     s << gerarBotoes();
-    s << gerarIrParaTick(estado);
-    s << gerarFormularioModificacao(estado);
+    s << gerarIrTick(estado);
+    s << gerarFormMod(estado);
     s << "</div>\n";
     s << gerarJavaScript();
     return s.str();
@@ -93,7 +93,7 @@ std::string ControlesHTML::gerarJavaScript() const {
       << "\n"
       << "function irTick() {\n"
       << "  const t = parseInt(document.getElementById('tickDestino').value);\n"
-      << "  enviarComando({tipo:'IR_PARA_TICK', valor: t});\n"
+      << "  enviarComando({tipo:'IR_TICK', valor: t});\n"
       << "}\n"
       << "\n"
       << "function modificarTarefa() {\n"
@@ -101,7 +101,7 @@ std::string ControlesHTML::gerarJavaScript() const {
       << "  const campo = document.getElementById('campoSel').value;\n"
       << "  const valor = document.getElementById('valorCampo').value;\n"
       << "  enviarComando({\n"
-      << "    tipo: 'MODIFICAR_TAREFA',\n"
+      << "    tipo: 'MOD_TAREFA',\n"
       << "    idTarefa: id,\n"
       << "    campo: campo,\n"
       << "    valorCampo: valor\n"

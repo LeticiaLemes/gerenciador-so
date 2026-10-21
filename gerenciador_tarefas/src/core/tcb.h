@@ -22,11 +22,13 @@ struct Evento {
 
 // Estados possíveis de uma tarefa
 enum class EstadoTarefa {
-    PRONTA,
-    EXECUTANDO,
-    SUSPENSA, 
-    TERMINADA,
-    IGNORADA        // Tarefas aperiódicas
+    PRONTA,         // ativação em andamento, esperando CPU
+    EXECUTANDO,     // ativação em andamento, ocupando uma CPU
+    SUSPENSA,       // bloqueada por evento (mutex/E-S) - Projeto B
+    TERMINADA,      // concluiu todas as ativações
+    IGNORADA,       // Tarefas aperiódicas
+    INATIVA         // sem ativação em andamento (antes do ingresso ou
+                    // aguardando o próximo período)
 };
 
 // Task Control Block (TCB) - Estrutura que representa uma tarefa
@@ -61,3 +63,45 @@ struct ParametrosSistema {
     int quantum = 1;   // período máximo de execução
     int qtdeCpus = 1;   // 1.. N
 };
+
+// Operações sobre o TCB usadas pelo Simulador.
+namespace TCBUtils {
+
+    // Projeto A: tarefas periódicas terminam após 10 ativações.
+    constexpr int MAX_ATIVACOES = 10;
+
+    inline bool ehPeriodica(const TCB& t) { return t.periodo > 0; }
+
+    inline bool podeAtivar(const TCB& t) {
+        return t.estado != EstadoTarefa::TERMINADA &&
+               t.estado != EstadoTarefa::IGNORADA;
+    }
+
+    inline bool atingiuLimiteAtivacoes(const TCB& t) {
+        return t.ativacoes >= MAX_ATIVACOES;
+    }
+
+    inline bool ativacaoConcluida(const TCB& t) {
+        return t.tempoExecutado >= t.duracao;
+    }
+
+    // Prazo relativo efetivo: prazo=0 significa "igual ao período".
+    inline int prazoRelativo(const TCB& t) {
+        return t.prazo > 0 ? t.prazo : t.periodo;
+    }
+
+    // Começa uma nova ativação no instante 'tick'.
+    inline void iniciarNovaAtivacao(TCB& t, int tick) {
+        ++t.ativacoes;
+        t.tempoExecutado = 0;
+        t.estado = EstadoTarefa::PRONTA;
+        t.cpuAtual = -1;
+        t.perdeuDeadline = false;
+        t.deadlineAtual = tick + prazoRelativo(t);
+    }
+
+    inline void terminar(TCB& t) {
+        t.estado = EstadoTarefa::TERMINADA;
+        t.cpuAtual = -1;
+    }
+}

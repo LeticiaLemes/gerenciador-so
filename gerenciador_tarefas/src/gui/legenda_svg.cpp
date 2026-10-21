@@ -12,25 +12,24 @@ std::string LegendaSVG::gerar() const {
     s << "  <text x='10' y='20' font-size='14' font-weight='bold' fill='#222'>"
       << "Legenda</text>\n";
 
-    int y1 = 40;
-    int y2 = 60;
-
-    // Linha 1: estados
+    int y1 = 42;   // Linha 1: estados
+    int y2 = 66;   // Linha 2: eventos
     int x = 10;
 
+    // Linha 1: estados
     // Executando
     s << "  <rect x='" << x << "' y='" << (y1 - 10)
       << "' width='20' height='12' fill='#3498DB' stroke='#222'/>\n";
     s << "  <text x='" << (x + 25) << "' y='" << y1
       << "' font-size='12' fill='#222'>Executando</text>\n";
-    x += 110;
+    x += 115;
 
     // Pronta
     s << "  <rect x='" << x << "' y='" << (y1 - 10)
       << "' width='20' height='12' fill='none' stroke='#888'/>\n";
     s << "  <text x='" << (x + 25) << "' y='" << y1
       << "' font-size='12' fill='#222'>Pronta (não executando)</text>\n";
-    x += 200;
+    x += 210;
 
     // Suspensa
     s << "  <defs><pattern id='legPontos' width='6' height='6' "
